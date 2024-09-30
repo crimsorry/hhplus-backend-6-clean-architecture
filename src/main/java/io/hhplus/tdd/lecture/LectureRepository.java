@@ -1,9 +1,6 @@
 package io.hhplus.tdd.lecture;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-@RequiredArgsConstructor
-public class LectureRepository implements LectureRepositoryImpl{
+public interface LectureRepository extends JpaRepository<Lecture, Long>{
 }

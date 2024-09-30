@@ -21,8 +21,14 @@ dependencyManagement {
     }
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     implementation(libs.spring.boot.starter.web)
+    implementation(libs.spring.boot.starter.data.jpa)
+    implementation(libs.h2)
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
     annotationProcessor(libs.spring.boot.configuration.processor)

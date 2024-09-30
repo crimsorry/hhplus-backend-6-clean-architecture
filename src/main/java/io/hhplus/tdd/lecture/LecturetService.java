@@ -1,5 +1,8 @@
 package io.hhplus.tdd.lecture;
 
-public interface LecturetService {
+import org.springframework.stereotype.Service;
+
+@Service
+public class LecturetService {
 
 }
