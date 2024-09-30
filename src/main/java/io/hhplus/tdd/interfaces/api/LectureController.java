@@ -1,4 +1,4 @@
-package io.hhplus.tdd.lecture;
+package io.hhplus.tdd.interfaces.api;
 
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

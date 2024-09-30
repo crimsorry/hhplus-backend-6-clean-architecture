@@ -1,4 +1,4 @@
-package io.hhplus.tdd.lecture;
+package io.hhplus.tdd.application.service;
 
 import org.springframework.stereotype.Service;
 

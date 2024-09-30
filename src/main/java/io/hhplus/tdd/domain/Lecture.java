@@ -1,4 +1,4 @@
-package io.hhplus.tdd.lecture;
+package io.hhplus.tdd.domain;
 
 import jakarta.persistence.*;
 import lombok.Builder;

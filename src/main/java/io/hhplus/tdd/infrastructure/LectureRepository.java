@@ -1,5 +1,6 @@
-package io.hhplus.tdd.lecture;
+package io.hhplus.tdd.infrastructure;
 
+import io.hhplus.tdd.domain.Lecture;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LectureRepository extends JpaRepository<Lecture, Long>{

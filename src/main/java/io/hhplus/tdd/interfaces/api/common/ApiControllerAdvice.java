@@ -1,7 +1,5 @@
-package io.hhplus.tdd;
+package io.hhplus.tdd.interfaces.api.common;
 
-import io.hhplus.tdd.lecture.CustomException;
-import io.hhplus.tdd.lecture.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
