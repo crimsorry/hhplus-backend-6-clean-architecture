@@ -1,14 +1,18 @@
 package io.hhplus.tdd.domain;
 
 import jakarta.persistence.*;
-import lombok.Builder;
+import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Comment("수강신청")
 public class Lecture {
@@ -18,7 +22,7 @@ public class Lecture {
     private Long lectureId;
 
     @NotNull
-    @Comment("수강명")
+    @Comment("강의명")
     @Column private String lectureName;
 
     @NotNull
@@ -26,16 +30,7 @@ public class Lecture {
     @Column private String teacherName;
 
     @NotNull
-    @Comment("수강 인원")
-    @ColumnDefault("0")
-    @Column private Integer lectureCnt;
-
-    @NotNull
-    @Comment("수강 신청일")
-    @Column private LocalDateTime startDateTime;
-
-    @NotNull
-    @Comment("수강 마감일")
-    @Column private LocalDateTime endDateTime;
+    @Comment("수강인원")
+    @Column private Integer capacity;
 
 }
