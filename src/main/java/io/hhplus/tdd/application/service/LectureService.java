@@ -44,8 +44,8 @@ public class LectureService {
                 -> new CustomException("존재하지 않는 유저입니다."));
         LectureItem lectureItem = lectureItemRepository.findByItemId(itemId).orElseThrow(()
                 -> new CustomException("존재하지 않는 특강입니다."));
-        Optional<LectureHistory> existingLecture = lectureHistoryRepository.findByMemberAndLectureItemAndIsApply(member, lectureItem, true);
-        if (existingLecture.isPresent() && !existingLecture.isEmpty()) {
+        Optional<LectureHistory> existingLecture = lectureHistoryRepository.findByMemberAndLectureItem_LectureAndIsApply(member, lectureItem.getLecture(), true);
+        if (existingLecture.isPresent() &&!existingLecture.isEmpty() ) {
             throw new CustomException("이미 신청 내역이 존재합니다.");
         }
 

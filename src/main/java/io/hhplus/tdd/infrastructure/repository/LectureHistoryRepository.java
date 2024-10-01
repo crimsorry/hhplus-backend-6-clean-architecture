@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface LectureHistoryRepository extends JpaRepository<LectureHistory, Long>{
 
-    Optional<LectureHistory> findByMemberAndLectureItemAndIsApply(Member member, LectureItem lectureItem, Boolean isApply);
+    Optional<LectureHistory> findByMemberAndLectureItem_LectureAndIsApply(Member member, Lecture lecture, boolean isApply);
     List<LectureHistory> findByMemberAndIsApply(Member member, Boolean isApply);
 
 }

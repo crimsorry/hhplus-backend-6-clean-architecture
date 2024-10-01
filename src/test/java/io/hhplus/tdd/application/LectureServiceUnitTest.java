@@ -73,7 +73,7 @@ class LectureServiceUnitTest {
         // when
         when(memberRepository.findByMemberId(member.getMemberId())).thenReturn(Optional.of(member));
         when(lectureItemRepository.findByItemId(lectureItem.getItemId())).thenReturn(Optional.of(lectureItem));
-        when(lectureHistoryRepository.findByMemberAndLectureItemAndIsApply(member, lectureItem, true)).thenReturn(Optional.empty());
+        when(lectureHistoryRepository.findByMemberAndLectureItem_LectureAndIsApply(member, lectureItem.getLecture(), true)).thenReturn(Optional.empty());
 
         // then
         LectureHistory result = lectureService.lectureApply(member.getMemberId(), lectureItem.getItemId());
