@@ -8,6 +8,7 @@ import io.hhplus.tdd.infrastructure.repository.LectureHistoryRepository;
 import io.hhplus.tdd.infrastructure.repository.LectureItemRepository;
 import io.hhplus.tdd.infrastructure.repository.LectureRepository;
 import io.hhplus.tdd.infrastructure.repository.MemberRepository;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,6 +39,7 @@ public class LectureServiceIntegrationTest {
     @Autowired
     private LectureHistoryRepository lectureHistoryRepository;
 
+    @Transactional
     @Test
     public void 동시성_특강신청_40명이_30명_강의_신청() throws InterruptedException {
         // given
@@ -49,7 +51,7 @@ public class LectureServiceIntegrationTest {
             memberRepository.save(new Member(i, "김소리" + i));
         }
         memberRepository.flush();
-        Lecture lecture = new Lecture(1L, "JAVA 프로그래밍", "허재", capacity);
+        Lecture lecture = new Lecture(1L, "JAVA 프로그래밍", "이석범", capacity);
         lectureRepository.save(lecture);
         lectureRepository.flush();
         lectureItemRepository.save(new LectureItem(1L, capacity, LocalDate.now(), LocalDate.now().plusDays(3), LocalDate.now().plusDays(10), lecture));
@@ -90,7 +92,7 @@ public class LectureServiceIntegrationTest {
         AtomicInteger failCnt = new AtomicInteger();
         memberRepository.save(new Member(memberId, "김소리"));
         memberRepository.flush();
-        Lecture lecture = new Lecture(1L, "JAVA 프로그래밍", "허재", capacity);
+        Lecture lecture = new Lecture(1L, "JAVA 프로그래밍", "이석범", capacity);
         lectureRepository.save(lecture);
         lectureRepository.flush();
         lectureItemRepository.save(new LectureItem(1L, capacity, LocalDate.now(), LocalDate.now().plusDays(3), LocalDate.now().plusDays(10), lecture));

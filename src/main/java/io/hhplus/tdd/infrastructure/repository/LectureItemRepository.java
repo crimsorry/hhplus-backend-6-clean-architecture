@@ -21,7 +21,7 @@ public interface LectureItemRepository extends JpaRepository<LectureItem, Long>{
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     Optional<LectureItem> findByItemId(long itemId);
     
-    /* 500에러 > fetch join N + 1 해결 */
+    /* N + 1 문제 > fetch join */
     @Query("SELECT li FROM LectureItem li JOIN FETCH li.lecture WHERE li.remainCnt > 0")
     List<LectureItem> findByRemainCntGreaterThanWithLecture();
 

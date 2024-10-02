@@ -6,7 +6,6 @@ import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.Comment;
 
 @Getter
-@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

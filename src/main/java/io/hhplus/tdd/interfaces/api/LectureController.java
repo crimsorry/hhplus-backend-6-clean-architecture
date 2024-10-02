@@ -1,9 +1,14 @@
 package io.hhplus.tdd.interfaces.api;
 
+import io.hhplus.tdd.application.dto.LectureItemDto;
+import io.hhplus.tdd.application.dto.UserLectureDoneDto;
+import io.hhplus.tdd.application.dto.UserLectureHistoryDto;
 import io.hhplus.tdd.application.service.LectureService;
+import io.hhplus.tdd.domain.Lecture;
 import io.hhplus.tdd.domain.LectureHistory;
-import io.hhplus.tdd.interfaces.api.dto.LectureItemResponseDto;
-import io.hhplus.tdd.interfaces.api.dto.UserLectureHistoryResponseDto;
+import io.hhplus.tdd.interfaces.api.dto.LectureItemRes;
+import io.hhplus.tdd.interfaces.api.dto.UserLectureDoneRes;
+import io.hhplus.tdd.interfaces.api.dto.UserLectureHistoryRes;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,9 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/lecture")
@@ -26,7 +29,18 @@ public class LectureController {
     // 특강 신청 가능 목록 조회 api - 날짜별
     @GetMapping("apply")
     public ResponseEntity<?> getApplyLectures(){
-        Map<LocalDate, List<LectureItemResponseDto>> restResponse = lectureService.applyLectures();
+        List<LectureItemDto> lectureItemDtos = lectureService.applyLectures();
+        List<LectureItemRes> restResponse = lectureItemDtos.stream()
+                .map(dto -> new LectureItemRes(
+                        dto.lectureId(),
+                        dto.lectureItemId(),
+                        dto.lectureName(),
+                        dto.teacherName(),
+                        dto.remainCnt(),
+                        dto.startDate(),
+                        dto.openDate()
+                ))
+                .toList();
         return new ResponseEntity<>(restResponse, HttpStatus.OK);
     }
 
@@ -36,7 +50,19 @@ public class LectureController {
             @RequestParam(required = true, defaultValue = "1") long memberId,
             @RequestParam(required = true, defaultValue = "1") long itemId
     ){
-        LectureHistory restResponse = lectureService.lectureApply(memberId, itemId);
+        UserLectureDoneDto dto = lectureService.lectureApply(memberId, itemId);
+        UserLectureDoneRes restResponse = new UserLectureDoneRes(
+                            dto.courseId(),
+                            dto.memberId(),
+                            dto.memberName(),
+                            dto.lectureId(),
+                            dto.lectureName(),
+                            dto.teacherName(),
+                            dto.itemId(),
+                            dto.startDate(),
+                            dto.endDate(),
+                            dto.openDate()
+                    );
         return new ResponseEntity<>(restResponse, HttpStatus.OK);
     }
 
@@ -45,7 +71,19 @@ public class LectureController {
     public ResponseEntity<?> getUserLectureHistory(
             @PathVariable long id
     ){
-        List<UserLectureHistoryResponseDto> restResponse = lectureService.applyCourses(id);
+        List<UserLectureHistoryDto> lectureHistoryDtos = lectureService.applyCourses(id);
+        List<UserLectureHistoryRes> restResponse = lectureHistoryDtos.stream()
+                .map(dto -> new UserLectureHistoryRes(
+                        dto.lectureId(),
+                        dto.lectureItemId(),
+                        dto.lectureName(),
+                        dto.teacherName(),
+                        dto.remainCnt(),
+                        dto.startDate(),
+                        dto.endDate(),
+                        dto.openDate()
+                ))
+                .toList();
         return new ResponseEntity<>(restResponse, HttpStatus.OK);
     }
 

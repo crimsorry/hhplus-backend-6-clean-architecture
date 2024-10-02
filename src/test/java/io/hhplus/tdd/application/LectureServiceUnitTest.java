@@ -1,5 +1,8 @@
 package io.hhplus.tdd.application;
 
+import io.hhplus.tdd.application.dto.LectureItemDto;
+import io.hhplus.tdd.application.dto.UserLectureDoneDto;
+import io.hhplus.tdd.application.dto.UserLectureHistoryDto;
 import io.hhplus.tdd.application.service.LectureService;
 import io.hhplus.tdd.domain.LectureHistory;
 import io.hhplus.tdd.domain.Lecture;
@@ -7,11 +10,7 @@ import io.hhplus.tdd.domain.LectureItem;
 import io.hhplus.tdd.domain.Member;
 import io.hhplus.tdd.infrastructure.repository.LectureHistoryRepository;
 import io.hhplus.tdd.infrastructure.repository.LectureItemRepository;
-import io.hhplus.tdd.infrastructure.repository.LectureRepository;
 import io.hhplus.tdd.infrastructure.repository.MemberRepository;
-import io.hhplus.tdd.interfaces.api.dto.LectureItemResponseDto;
-import io.hhplus.tdd.interfaces.api.dto.UserLectureHistoryResponseDto;
-import io.hhplus.tdd.interfaces.api.util.DateUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,7 +20,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,9 +32,6 @@ class LectureServiceUnitTest {
     private LectureService lectureService;
 
     @Mock
-    private LectureRepository lectureRepository;
-
-    @Mock
     private LectureItemRepository lectureItemRepository;
 
     @Mock
@@ -44,9 +39,6 @@ class LectureServiceUnitTest {
 
     @Mock
     private MemberRepository memberRepository;
-
-    @Mock
-    private DateUtils dateUtils;
 
     @Test
     public void 신청_가능_특강_목록(){
@@ -59,8 +51,8 @@ class LectureServiceUnitTest {
         when(lectureItemRepository.findByRemainCntGreaterThanWithLecture()).thenReturn(lectureItemList);
 
         // then
-        Map<LocalDate, List<LectureItemResponseDto>> result = lectureService.applyLectures();
-        assertEquals(4, result.size()); // 2024.10.01 ~ 2024.10.04 > 4일 간 map list
+        List<LectureItemDto> result = lectureService.applyLectures();
+        assertEquals(7, result.size()); // 2024.10.01 ~ 2024.10.04 > 4일 간 map list
     }
 
     @Test
@@ -76,9 +68,9 @@ class LectureServiceUnitTest {
         when(lectureHistoryRepository.findByMemberAndLectureItem_LectureAndIsApply(member, lectureItem.getLecture(), true)).thenReturn(Optional.empty());
 
         // then
-        LectureHistory result = lectureService.lectureApply(member.getMemberId(), lectureItem.getItemId());
-        assertEquals(lectureHistory.getMember().getMemberId(), result.getMember().getMemberId());
-        assertEquals(lectureHistory.getLectureItem().getItemId(), result.getLectureItem().getItemId());
+        UserLectureDoneDto result = lectureService.lectureApply(member.getMemberId(), lectureItem.getItemId());
+        assertEquals(lectureHistory.getMember().getMemberId(), result.memberId());
+        assertEquals(lectureHistory.getLectureItem().getItemId(), result.itemId());
     }
 
     @Test
@@ -94,7 +86,7 @@ class LectureServiceUnitTest {
         when(lectureHistoryRepository.findByMemberAndIsApply(member, true)).thenReturn(lectureHistoryList);
 
         // then
-        List<UserLectureHistoryResponseDto> result = lectureService.applyCourses(member.getMemberId());
+        List<UserLectureHistoryDto> result = lectureService.applyCourses(member.getMemberId());
         assertEquals(1, result.size());
         assertEquals(lectureItem.getRemainCnt(), result.get(0).remainCnt());
     }

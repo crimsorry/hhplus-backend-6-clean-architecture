@@ -3,7 +3,7 @@ spring:
 
   datasource:
     driver-class-name: org.h2.Driver
-    url: 'jdbc:h2:mem:lecture'   # In-Memory Mode. 프로젝트 테스트 용으로 메모리만 가지게 하기 위해 사용.
+    url: 'jdbc:h2:~/lecture;'  # 외부 접속 툴 연동을 위해 Embedded Mode 사용
     username: sa
     password:
 
