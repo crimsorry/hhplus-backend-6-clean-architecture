@@ -2,14 +2,16 @@ package io.hhplus.tdd.interfaces.api.dto;
 
 import java.time.LocalDate;
 
-public record UserLectureHistoryResponseDto(
+public record UserLectureDoneRes(
+        Long historyId,
+        Long memberId,
+        String memberName,
         Long lectureId,
-        Long lectureItemId,
         String lectureName,
         String teacherName,
-        Integer remainCnt,
+        Long itemId,
         LocalDate startDate,
         LocalDate endDate,
         LocalDate openDate
-) {
+)  {
 }

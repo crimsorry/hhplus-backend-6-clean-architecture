@@ -28,6 +28,7 @@ repositories {
 dependencies {
     implementation(libs.spring.boot.starter.web)
     implementation(libs.spring.boot.starter.data.jpa)
+    implementation(libs.mysql.connector)
     implementation(libs.h2)
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)

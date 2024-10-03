@@ -6,7 +6,6 @@ import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.Comment;
 
 @Getter
-@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,8 +14,6 @@ import org.hibernate.annotations.Comment;
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Comment("PK, autoIncrement")
     private Long memberId;
 
     @NotNull

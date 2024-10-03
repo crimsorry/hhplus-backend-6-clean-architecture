@@ -15,10 +15,8 @@ import org.hibernate.annotations.Comment;
 @Comment("강의 수강 내역")
 public class LectureHistory {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Comment("PK, autoIncrement")
-    private Long courseId;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long historyId;
 
     @NotNull
     @Comment("신청자")

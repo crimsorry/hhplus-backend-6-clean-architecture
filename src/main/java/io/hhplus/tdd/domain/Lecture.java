@@ -5,11 +5,7 @@ import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.Comment;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 @Getter
-@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,8 +13,7 @@ import java.time.LocalDateTime;
 @Comment("수강신청")
 public class Lecture {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Comment("PK, autoIncrement")
+    @Id
     private Long lectureId;
 
     @NotNull
