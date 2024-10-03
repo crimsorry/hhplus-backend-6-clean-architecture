@@ -14,8 +14,6 @@ import org.hibernate.annotations.Comment;
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Comment("PK, autoIncrement")
     private Long memberId;
 
     @NotNull

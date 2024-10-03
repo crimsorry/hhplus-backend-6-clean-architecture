@@ -43,9 +43,15 @@ public class LectureService {
                 -> new CustomException("존재하지 않는 특강입니다."));
         Optional<LectureHistory> existingLecture = lectureHistoryRepository.findByMemberAndLectureItem_LectureAndIsApply(member, lectureItem.getLecture(), true);
         if (existingLecture.isPresent() &&!existingLecture.isEmpty() ) {
+            LectureHistory lectureHistory = LectureHistory.builder()
+                    .member(member)
+                    .lectureItem(lectureItem)
+                    .isApply(false)
+                    .build();
+            lectureHistoryRepository.save(lectureHistory); // 실패 내역
             throw new CustomException("이미 신청 내역이 존재합니다.");
         }
-        if(lectureItem.getRemainCnt() <= 0){
+        if(lectureItem.getRemainCnt() <= 0) {
             throw new CustomException("이미 완료된 수강신청입니다.");
         }
         lectureItem.setRemainCnt(lectureItem.getRemainCnt()-1);
@@ -56,7 +62,7 @@ public class LectureService {
                 .build();
         lectureHistoryRepository.save(lectureHistory); // 수강내역 추가
         UserLectureDoneDto userLectureDoneDto = new UserLectureDoneDto(
-                lectureHistory.getCourseId(),
+                lectureHistory.getHistoryId(),
                 lectureHistory.getMember().getMemberId(),
                 lectureHistory.getMember().getMemberName(),
                 lectureHistory.getLectureItem().getLecture().getLectureId(),
@@ -72,7 +78,7 @@ public class LectureService {
 
     /* 사용자별 - 특강 신청 완료 목록 */
     @Transactional(readOnly = true)
-    public List<UserLectureHistoryDto> applyCourses(long memberId){
+    public List<UserLectureHistoryDto> applyHistorys(long memberId){
         Member member = memberRepository.findByMemberId(memberId).orElseThrow(()
                 -> new CustomException("존재하지 않는 유저입니다."));
         List<UserLectureHistoryDto> lectureItemResponseDtos = new ArrayList<>();

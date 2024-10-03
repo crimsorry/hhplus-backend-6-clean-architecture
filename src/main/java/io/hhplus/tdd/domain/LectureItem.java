@@ -1,13 +1,11 @@
 package io.hhplus.tdd.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.Comment;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -19,8 +17,6 @@ import java.time.LocalDateTime;
 public class LectureItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Comment("PK, autoIncrement")
     private Long itemId;
 
     @NotNull

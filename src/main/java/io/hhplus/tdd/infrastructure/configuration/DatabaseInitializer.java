@@ -24,6 +24,7 @@ public class DatabaseInitializer {
     public void init() {
         int capacity1 = 30;
         int capacity2 = 20;
+        if(memberRepository.findByMemberId(1L).isPresent()) return;
         Lecture lecture1 = new Lecture(1L, "JAVA 프로그래밍", "이석범", capacity1);
         Lecture lecture2 = new Lecture(2L, "MSA 마스터", "이석범", capacity2);
         memberRepository.save(new Member(1L, "김소리"));

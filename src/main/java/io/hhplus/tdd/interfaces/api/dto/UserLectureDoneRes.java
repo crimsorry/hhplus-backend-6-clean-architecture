@@ -3,7 +3,7 @@ package io.hhplus.tdd.interfaces.api.dto;
 import java.time.LocalDate;
 
 public record UserLectureDoneRes(
-        Long courseId,
+        Long historyId,
         Long memberId,
         String memberName,
         Long lectureId,

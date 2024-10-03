@@ -4,8 +4,6 @@ import io.hhplus.tdd.application.dto.LectureItemDto;
 import io.hhplus.tdd.application.dto.UserLectureDoneDto;
 import io.hhplus.tdd.application.dto.UserLectureHistoryDto;
 import io.hhplus.tdd.application.service.LectureService;
-import io.hhplus.tdd.domain.Lecture;
-import io.hhplus.tdd.domain.LectureHistory;
 import io.hhplus.tdd.interfaces.api.dto.LectureItemRes;
 import io.hhplus.tdd.interfaces.api.dto.UserLectureDoneRes;
 import io.hhplus.tdd.interfaces.api.dto.UserLectureHistoryRes;
@@ -52,7 +50,7 @@ public class LectureController {
     ){
         UserLectureDoneDto dto = lectureService.lectureApply(memberId, itemId);
         UserLectureDoneRes restResponse = new UserLectureDoneRes(
-                            dto.courseId(),
+                            dto.historyId(),
                             dto.memberId(),
                             dto.memberName(),
                             dto.lectureId(),
@@ -71,7 +69,7 @@ public class LectureController {
     public ResponseEntity<?> getUserLectureHistory(
             @PathVariable long id
     ){
-        List<UserLectureHistoryDto> lectureHistoryDtos = lectureService.applyCourses(id);
+        List<UserLectureHistoryDto> lectureHistoryDtos = lectureService.applyHistorys(id);
         List<UserLectureHistoryRes> restResponse = lectureHistoryDtos.stream()
                 .map(dto -> new UserLectureHistoryRes(
                         dto.lectureId(),

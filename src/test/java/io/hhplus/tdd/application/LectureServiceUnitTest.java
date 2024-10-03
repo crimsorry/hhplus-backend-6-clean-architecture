@@ -86,7 +86,7 @@ class LectureServiceUnitTest {
         when(lectureHistoryRepository.findByMemberAndIsApply(member, true)).thenReturn(lectureHistoryList);
 
         // then
-        List<UserLectureHistoryDto> result = lectureService.applyCourses(member.getMemberId());
+        List<UserLectureHistoryDto> result = lectureService.applyHistorys(member.getMemberId());
         assertEquals(1, result.size());
         assertEquals(lectureItem.getRemainCnt(), result.get(0).remainCnt());
     }

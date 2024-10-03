@@ -1,6 +1,5 @@
 package io.hhplus.tdd.infrastructure.repository;
 
-import io.hhplus.tdd.domain.Lecture;
 import io.hhplus.tdd.domain.LectureItem;
 import jakarta.persistence.LockModeType;
 import org.springframework.data.jpa.repository.JpaRepository;
