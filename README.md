@@ -2,13 +2,13 @@
 
 ### ⚡ 개요
 
-* 수강 신청 서비스를 구축하기 위한 요구사항 분석부터 Table 설계 방안에 까지 다룹니다.
+* 수강 신청 서비스를 구축하기 위한 Table 설계 방안에 대해 다룹니다.
 
 ### ⚡ 요구사항 분석
 
 - [x] **기능 구현**
   - [x] GET        /apply            특강 신청 가능 목록
-  - [x] POST     /apply            특강 신청
+  - [x] PATCH   /apply            특강 신청
   - [x] GET       /{id}/history   사용자 별 - 특강 신청 완료 목록
 
 > **POST**: 수강신청 내역이 insert 되지만, 수강한 잔여좌석 수가 update 되야 하기 때문에 처음에는 **PATCH** 로 설계했습니다. 그러나 PATCH 는 기존 리소스의 일부 속성만 수정한다는 사실을 알게 되었습니다. '특강신청' 비지니스 로직은 업데이트 동작도 포함하지만, 새로운 시소스를 생성하는 기능 역시 존재하기 때문에 POST 메소드로 최종 선택했습니다.
@@ -28,9 +28,9 @@
 
 ### ⚡ ERD
 
-#### <변경 전> 
+#### <변경 전>
 
-![image-20241003233055104](C:\Users\user\AppData\Roaming\Typora\typora-user-images\image-20241003233055104.png)
+![img](https://postfiles.pstatic.net/MjAyNDEwMDRfMTE1/MDAxNzI3OTcwNjY1MTU0.2uHbrzj8-X55rO0kfMcfVERX5Z-_3CnBRPzFNphdl3Qg.leOci-lr39rMCjApWdzaQ7LQ8dZ2F1Wc9WAbcqnnDvUg.PNG/image-20241003233055104.png?type=w773)
 
 * **Member**
   * 강의를 수강 할 수 있는 **신청자 정보** 테이블 입니다.
@@ -45,7 +45,7 @@
 
 #### <변경 후>
 
-![image-20241003225726039](C:\Users\user\AppData\Roaming\Typora\typora-user-images\image-20241003225726039.png)
+![img](https://postfiles.pstatic.net/MjAyNDEwMDRfMTEg/MDAxNzI3OTcwNjc1MDEw.HiQUFBYCaDrWFpSv8zuyEUciU9xEKz0v06EXzYaa5b0g.wJjzifhNmz8VB6u-KG10PJvCSY6s2gL6HnEkfPoAcNkg.PNG/image-20241003225726039.png?type=w773)
 
 * **Member**
   * 강의를 수강 할 수 있는 **신청자 정보** 테이블 입니다.
@@ -61,7 +61,7 @@
 
 ### ⚡DDL
 
-```mysql
+````mysql
 -- DDL 정의
 
 CREATE TABLE member (
@@ -95,6 +95,7 @@ CREATE TABLE lecture_history (
     CONSTRAINT fk_item FOREIGN KEY (item_id) REFERENCES lecture_item(item_id)
 ) COMMENT = '강의 수강 내역';
 ```
+````
 
 ### ⚡ 결론
 
