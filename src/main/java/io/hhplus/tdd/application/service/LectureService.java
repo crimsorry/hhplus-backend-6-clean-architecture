@@ -42,7 +42,7 @@ public class LectureService {
         LectureItem lectureItem = lectureItemRepository.findByItemId(itemId).orElseThrow(()
                 -> new CustomException("존재하지 않는 특강입니다."));
         Optional<LectureHistory> existingLecture = lectureHistoryRepository.findByMemberAndLectureItem_LectureAndIsApply(member, lectureItem.getLecture(), true);
-        if (existingLecture.isPresent() &&!existingLecture.isEmpty() ) {
+        if (existingLecture.isPresent() &&!existingLecture.isEmpty() ) { // 유니크 키.
             LectureHistory lectureHistory = LectureHistory.builder()
                     .member(member)
                     .lectureItem(lectureItem)
