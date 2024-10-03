@@ -43,7 +43,7 @@ public class LectureController {
     }
 
     // 특강 신청 api
-    @PatchMapping("apply")
+    @PostMapping("apply")
     public ResponseEntity<?> applyLecture(
             @RequestParam(required = true, defaultValue = "1") long memberId,
             @RequestParam(required = true, defaultValue = "1") long itemId
